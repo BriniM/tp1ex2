@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 final class Menu {
-    final private static Scanner sc = new Scanner(System.in);
+    final private static Scanner scanner = new Scanner(System.in);
     final private static HashMap<String, Runnable> commandes = new HashMap<>();
 
     // https://docs.oracle.com/javase/7/docs/api/java/util/regex/Pattern.html
@@ -14,7 +14,7 @@ final class Menu {
 
     public static String question(String cle, String regexp) throws Exception {
         System.out.printf("Donner %s: ", cle);
-        var input = sc.nextLine();
+        var input = scanner.nextLine();
 
         Pattern pattern = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE);
         if (pattern.matcher(input).find())
@@ -24,7 +24,7 @@ final class Menu {
 
     public static String question(String cle, String description, String regexp) throws Exception {
         System.out.printf("Donner %s (%s): ", cle, description);
-        var input = sc.nextLine();
+        var input = scanner.nextLine();
 
         Pattern pattern = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE);
         if (pattern.matcher(input).find())
@@ -39,7 +39,7 @@ final class Menu {
     public static void loop() {
         for(;;) {
             System.out.printf("Choisir commande %s: ", commandes.keySet());
-            String input = sc.nextLine();
+            String input = scanner.nextLine();
 
             commandes.forEach((cmd, meth) -> {
                 if (cmd.equalsIgnoreCase(input))

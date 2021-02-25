@@ -1,12 +1,12 @@
 package com.archlogiciel;
 
 public class Main {
-    static Banque b = new Banque();
+    static Banque banque = new Banque();
 
     public static void main(String[] args) {
         Menu.ajouterCommande("ajouter", Main::initialiserCompte); // Create
-        Menu.ajouterCommande("consulter", () -> System.out.println(b));// Read
-        Menu.ajouterCommande("comptes courant debiteurs", () -> System.out.println(b.comptesDebiteurs()));
+        Menu.ajouterCommande("consulter", () -> System.out.println(banque));// Read
+        Menu.ajouterCommande("comptes courant debiteurs", () -> System.out.println(banque.comptesDebiteurs()));
         Menu.ajouterCommande("modifier", Main::modifierCompte); // Update
         Menu.ajouterCommande("supprimer", Main::supprimerCompte); // Delete
 
@@ -21,7 +21,7 @@ public class Main {
                 int codeClient = Integer.parseInt(Menu.question("code client", Menu.integersregexp));
                 double solde = Double.parseDouble(Menu.question("solde", Menu.decimalregexp));
 
-                verifierOperation(b.ajouterCompte(codeCompte, codeClient, solde, typeCompte));
+                verifierOperation(banque.ajouterCompte(codeCompte, codeClient, solde, typeCompte));
             }
         } catch (Exception e) { System.out.println(e.getMessage()); }
     }
@@ -29,7 +29,7 @@ public class Main {
     private static void modifierCompte() {
         try {
             int codeClient = Integer.parseInt(Menu.question("code client", Menu.integersregexp));
-            Compte compteClient = b.getCompte(codeClient);
+            Compte compteClient = banque.getCompte(codeClient);
 
             if (compteClient != null) {
                 var newSolde = Double.parseDouble(Menu.question("nouveau solde", Menu.decimalregexp));
@@ -44,17 +44,16 @@ public class Main {
     private static void supprimerCompte() {
         try {
             int codeClient = Integer.parseInt(Menu.question("code client", Menu.integersregexp));
-            verifierOperation(b.supprimerCompte(codeClient));
+            verifierOperation(banque.supprimerCompte(codeClient));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
     private static void verifierOperation(boolean operation) {
-        if (operation) {
+        if (operation)
             System.out.println("Succes");
-        } else {
+        else
             System.out.println("Echec");
-        }
     }
 }
